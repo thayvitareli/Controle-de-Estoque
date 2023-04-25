@@ -805,8 +805,14 @@ public class newJFrame extends javax.swing.JFrame {
 			for (Product p : dao.listarProdutos()) {
 				if (obj.getCode().equals(p.getCode())) {
 					encontrou = 1;
+					if(obj.getQuantity() > 0) {
 					obj.setQuantity(p.getQuantity() + obj.getQuantity());
 					dao.atualizarEstoque(obj);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Insira uma quantidade válida!");
+
+					}
 				}
 			}
 			if (encontrou == 0) {
