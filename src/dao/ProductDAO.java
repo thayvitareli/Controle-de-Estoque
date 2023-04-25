@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import jdbc.ConnectionFactory;
 import model.Product;
 
@@ -34,11 +36,12 @@ public class ProductDAO {
 			st.setDouble(4, obj.getPrice());
 
 			st.execute();
-			System.out.println("\n*** CADASTRADO COM SUCESSO ***");
+
+			JOptionPane.showMessageDialog(null, "CADASTRADO COM SUCESSO");
 			st.close();
 
 		} catch (SQLException error) {
-			System.out.println("ERRO AO CADASTRAR!" + error);
+			JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR " + error);
 
 		}
 	}
@@ -78,8 +81,7 @@ public class ProductDAO {
 		}
 	}
 
-	// metodo aletrar produtos
-	public void vendaEstoque(Product obj) {
+	public void atualizarEstoque(Product obj) {
 
 		try {
 
@@ -90,51 +92,41 @@ public class ProductDAO {
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			int linhasAfetadas = st.executeUpdate(sql);
-			System.out.println("\n*** ALTERADO COM SUCESSO *** " + linhasAfetadas);
+			JOptionPane.showMessageDialog(null, "Estoque alterado com sucesso!");
 			st.close();
 
 		} catch (SQLException error) {
 			System.out.println("ERRO AO ALTERAR!" + error);
+			JOptionPane.showMessageDialog(null, "Erro ao adicionar no estoque! " + error);
 
 		}
 	}
 
-	public void compraEstoque(Product obj) {
-
-		try {
-
-			// 1º passo: cadastrar o comando SQL
-			String sql = "UPDATE tb_produtos SET quantity = " + obj.getQuantity() + " WHERE code = " + obj.getCode();
-
-			// 2º passo: conectar com o banco de dados
-			PreparedStatement st = conn.prepareStatement(sql);
-
-			int linhasAfetadas = st.executeUpdate(sql);
-			System.out.println("\n*** ALTERADO COM SUCESSO *** " + linhasAfetadas);
-			st.close();
-
-		} catch (SQLException error) {
-			System.out.println("ERRO AO ALTERAR!" + error);
-
-		}
-	}
-	
 	public void excluirProdutoEstoque(Product obj) {
-		
+
 		try {
 
 			String sql = "DELETE from tb_produtos WHERE code = " + obj.getCode();
-			
-			PreparedStatement st = conn.prepareStatement(sql);
 
-			int linhasAfetadas = st.executeUpdate(sql);
-			System.out.println("\n*** ALTERADO COM SUCESSO *** " + linhasAfetadas);
-			st.close();
+			PreparedStatement st = conn.prepareStatement(sql);
 			
-		} catch (Exception error){
-			System.out.println("ERRO AO EXCLUIR!" + error);
+			int i = JOptionPane.showConfirmDialog(
+			        null, 
+			        "Deseja realmente excluir?",
+			        "Continua",
+			        JOptionPane.OK_CANCEL_OPTION
+			        );
+			if(i == JOptionPane.YES_OPTION) {
+				int linhasAfetadas = st.executeUpdate(sql);
+				JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+				st.close();
+
+			}
+			
+		} catch (Exception error) {
+			JOptionPane.showMessageDialog(null, "Erro excluir!\n" + error);
 		}
-		
+
 	}
 
 }
