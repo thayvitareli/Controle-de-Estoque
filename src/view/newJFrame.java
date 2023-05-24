@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import dao.ProductDAO;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import model.Product;
 
 /**
@@ -43,6 +45,7 @@ public class newJFrame extends javax.swing.JFrame {
 	 */
 	public newJFrame() {
 		initComponents();
+               
 	}
 
 	/**
@@ -106,11 +109,11 @@ public class newJFrame extends javax.swing.JFrame {
 
 		tabelaProdutos1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-		}, new String[] { "Código", "Nome", "Quantidade", "Preço" }));
+		}, new String[] { "CÃ³digo", "Nome", "Quantidade", "PreÃ§o" }));
 		jScrollPane2.setViewportView(tabelaProdutos1);
 
 		jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-		jLabel17.setText("Código");
+		jLabel17.setText("CÃ³digo");
 
 		jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 		jLabel18.setText("Consultar Produto");
@@ -147,6 +150,7 @@ public class newJFrame extends javax.swing.JFrame {
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowActivated(java.awt.event.WindowEvent evt) {
 				formWindowActivated(evt);
+                            
 			}
 		});
 
@@ -170,7 +174,7 @@ public class newJFrame extends javax.swing.JFrame {
 		jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
 		jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-		jLabel2.setText("Código");
+		jLabel2.setText("CÃ³digo");
 
 		jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 		jLabel3.setText("Produto");
@@ -191,7 +195,7 @@ public class newJFrame extends javax.swing.JFrame {
 		});
 
 		jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-		jLabel5.setText("Preço");
+		jLabel5.setText("PreÃ§o");
 
 		jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 		jLabel15.setText("Cadastrar Novo Produto");
@@ -289,11 +293,11 @@ public class newJFrame extends javax.swing.JFrame {
 
 		tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-		}, new String[] { "Código", "Nome", "Quantidade", "Preço" }));
+		}, new String[] { "CÃ³digo", "Nome", "Quantidade", "Preï¿½o" }));
 		jScrollPane1.setViewportView(tabelaProdutos);
 
 		jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-		jLabel6.setText("Código");
+		jLabel6.setText("CÃ³digo");
 
 		btnconsultarTabela.setText("Consultar");
 		btnconsultarTabela.addActionListener(new java.awt.event.ActionListener() {
@@ -352,7 +356,7 @@ public class newJFrame extends javax.swing.JFrame {
 		jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
 		jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-		jLabel7.setText("Código");
+		jLabel7.setText("CÃ³digo");
 
 		jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 		jLabel8.setText("Produto");
@@ -468,7 +472,7 @@ public class newJFrame extends javax.swing.JFrame {
 		jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
 		jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-		jLabel11.setText("Código");
+		jLabel11.setText("CÃ³digo");
 
 		jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 		jLabel12.setText("Produto");
@@ -493,7 +497,7 @@ public class newJFrame extends javax.swing.JFrame {
 			}
 		});
 
-		// botao de limpar campos na janela de reposição
+		// botao de limpar campos na janela de reposiï¿½ï¿½o
 		btnLimparCampoReposicao.setText("LIMPAR");
 		btnLimparCampoReposicao.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -540,7 +544,7 @@ public class newJFrame extends javax.swing.JFrame {
 														javax.swing.GroupLayout.PREFERRED_SIZE)))
 										.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))));
 
-		// LABEL REPOSIÇÃO
+		// LABEL REPOSIï¿½ï¿½O
 		jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
 				new java.awt.Component[] { btnLimparCampoReposicao, btnSalvarReposicao });
 
@@ -633,6 +637,7 @@ public class newJFrame extends javax.swing.JFrame {
 	private void formWindowActivated(java.awt.event.WindowEvent evt) {
 		// TODO add your handling code here:
 		listar();
+               
 	}
 
 	private void txtNomeProdutoReposicaoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -653,7 +658,7 @@ public class newJFrame extends javax.swing.JFrame {
 
 	private void btnSalvarCadastroActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
-		// Botão Cadastrar novo Produto
+		// Botï¿½o Cadastrar novo Produto
 		try {
 			Product obj = new Product();
 
@@ -667,7 +672,7 @@ public class newJFrame extends javax.swing.JFrame {
 			int validaCodigo = obj.verificarCodigo(obj.getCode(), dao.listarProdutos());
 			if (validaCodigo == 1) {
 				JOptionPane.showMessageDialog(null,
-						"Código já cadastrado!\n" + "Não é possivel cadastrar dois produtos com o mesmo código.\n");
+						"Cï¿½digo jï¿½ cadastrado!\n" + "Nï¿½o ï¿½ possivel cadastrar dois produtos com o mesmo cï¿½digo.\n");
 			} else {
 				dao.cadastrarProdutos(obj);
 			}
@@ -709,7 +714,7 @@ public class newJFrame extends javax.swing.JFrame {
 				}
 			}
 			if (encontrou == 0) {
-				JOptionPane.showMessageDialog(null, "Código não encontrado, verifique o código digitado");
+				JOptionPane.showMessageDialog(null, "Cï¿½digo nï¿½o encontrado, verifique o cï¿½digo digitado");
 			}
 		} catch (Exception error) {
 
@@ -753,12 +758,12 @@ public class newJFrame extends javax.swing.JFrame {
 				}
 			}
 			if (encontrou == 0) {
-				JOptionPane.showMessageDialog(null, "Código não encontrado");
+				JOptionPane.showMessageDialog(null, "Cï¿½digo nï¿½o encontrado");
 
 			}
 		} catch (Exception error) {
 			JOptionPane.showMessageDialog(null,
-					"Não foi possível realizar a consulta.\n" + "Verifique se o campo foi preenchido corretamente");
+					"Nï¿½o foi possï¿½vel realizar a consulta.\n" + "Verifique se o campo foi preenchido corretamente");
 
 		}
 	}
@@ -810,13 +815,13 @@ public class newJFrame extends javax.swing.JFrame {
 					dao.atualizarEstoque(obj);
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Insira uma quantidade válida!");
+						JOptionPane.showMessageDialog(null, "Insira uma quantidade vï¿½lida!");
 
 					}
 				}
 			}
 			if (encontrou == 0) {
-				JOptionPane.showMessageDialog(null, "Código não encontrado, verifique o código digitado");
+				JOptionPane.showMessageDialog(null, "Cï¿½digo nï¿½o encontrado, verifique o cï¿½digo digitado");
 			}
 		} catch (Exception error) {
 			// tratar excecao
@@ -845,14 +850,15 @@ public class newJFrame extends javax.swing.JFrame {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(newJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(FrmEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(newJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(FrmEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(newJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(FrmEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(newJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(FrmEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
+		// </editor-fold>
 		// </editor-fold>
 
 		/* Create and display the form */
@@ -898,7 +904,7 @@ public class newJFrame extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel7;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JTabbedPane jTabbedPane1;
+	javax.swing.JTabbedPane jTabbedPane1;
 	private javax.swing.JTable tabelaProdutos;
 	private javax.swing.JTable tabelaProdutos1;
 	private javax.swing.JTextField txtCodigo;

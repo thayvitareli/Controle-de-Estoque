@@ -14,119 +14,155 @@ import model.Product;
 
 public class ProductDAO {
 
-	private Connection conn;
+    private Connection conn;
 
-	public ProductDAO() {
-		this.conn = new ConnectionFactory().getConnection();
-	}
+    public ProductDAO() {
+        this.conn = new ConnectionFactory().getConnection();
+    }
 
-	// metodo cadastrar produtos
-	public void cadastrarProdutos(Product obj) {
+    // metodo cadastrar produtos
+    public void cadastrarProdutos(Product obj) {
 
-		try {
+        try {
 
-			// 1º passo: cadastrar o comando SQL
-			String sql = "insert into tb_produtos(name,code,quantity,price)" + "values(?,?,?,?)";
+            // 1ï¿½ passo: cadastrar o comando SQL
+            String sql = "insert into tb_produtos(name,code,quantity,price)" + "values(?,?,?,?)";
 
-			// 2º passo: conectar com o banco de dados
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, obj.getName());
-			st.setInt(2, obj.getCode());
-			st.setInt(3, obj.getQuantity());
-			st.setDouble(4, obj.getPrice());
+            // 2ï¿½ passo: conectar com o banco de dados
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, obj.getName());
+            st.setInt(2, obj.getCode());
+            st.setInt(3, obj.getQuantity());
+            st.setDouble(4, obj.getPrice());
 
-			st.execute();
+            st.execute();
 
-			JOptionPane.showMessageDialog(null, "CADASTRADO COM SUCESSO");
-			st.close();
+            JOptionPane.showMessageDialog(null, "CADASTRADO COM SUCESSO");
+            st.close();
 
-		} catch (SQLException error) {
-			JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR " + error);
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR " + error);
 
-		}
-	}
+        }
+    }
 
-	// metodo listar Produtos
-	public List<Product> listarProdutos() {
+    // metodo listar Produtos
+    public List<Product> listarProdutos() {
 
-		try {
-			// 1º criar a lista
+        try {
+            // 1ï¿½ criar a lista
 
-			List<Product> lista = new ArrayList<>();
+            List<Product> lista = new ArrayList<>();
 
-			// criar o sql
-			String sql = "select* from tb_produtos";
+            // criar o sql
+            String sql = "select* from tb_produtos";
 
-			// executar o comando
+            // executar o comando
+            PreparedStatement st = conn.prepareStatement(sql);
 
-			PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
 
-			ResultSet rs = st.executeQuery();
+            while (rs.next()) {
 
-			while (rs.next()) {
+                Product obj = new Product();
+                obj.setID(rs.getInt("id"));
+                obj.setName(rs.getString("name"));
+                obj.setCode(rs.getInt("code"));
+                obj.setQuantity(rs.getInt("quantity"));
+                obj.setPrice(rs.getDouble("price"));
 
-				Product obj = new Product();
-				obj.setID(rs.getInt("id"));
-				obj.setName(rs.getString("name"));
-				obj.setCode(rs.getInt("code"));
-				obj.setQuantity(rs.getInt("quantity"));
-				obj.setPrice(rs.getDouble("price"));
+                lista.add(obj);
+            }
+            return lista;
+        } catch (Exception error) {
 
-				lista.add(obj);
-			}
-			return lista;
-		} catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "erro ao listar produtos " + error);
+            return null;
 
-			return null;
-		}
-	}
+        }
 
-	public void atualizarEstoque(Product obj) {
+    }
 
-		try {
+    public void atualizarEstoque(Product obj) {
 
-			// 1º passo: cadastrar o comando SQL
-			String sql = "UPDATE tb_produtos SET quantity = " + obj.getQuantity() + " WHERE code = " + obj.getCode();
+        try {
 
-			// 2º passo: conectar com o banco de dados
-			PreparedStatement st = conn.prepareStatement(sql);
+            // 1ï¿½ passo: cadastrar o comando SQL
+            String sql = "UPDATE tb_produtos SET quantity = " + obj.getQuantity() + " WHERE code = " + obj.getCode();
 
-			int linhasAfetadas = st.executeUpdate(sql);
-			JOptionPane.showMessageDialog(null, "Estoque alterado com sucesso!");
-			st.close();
+            // 2ï¿½ passo: conectar com o banco de dados
+            PreparedStatement st = conn.prepareStatement(sql);
 
-		} catch (SQLException error) {
-			System.out.println("ERRO AO ALTERAR!" + error);
-			JOptionPane.showMessageDialog(null, "Erro ao adicionar no estoque! " + error);
+            int linhasAfetadas = st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Estoque alterado com sucesso!");
+            st.close();
 
-		}
-	}
+        } catch (SQLException error) {
+            System.out.println("ERRO AO ALTERAR!" + error);
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar no estoque! " + error);
 
-	public void excluirProdutoEstoque(Product obj) {
+        }
+    }
 
-		try {
+    public void excluirProdutoEstoque(Product obj) {
 
-			String sql = "DELETE from tb_produtos WHERE code = " + obj.getCode();
+        try {
 
-			PreparedStatement st = conn.prepareStatement(sql);
-			
-			int i = JOptionPane.showConfirmDialog(
-			        null, 
-			        "Deseja realmente excluir?",
-			        "Continua",
-			        JOptionPane.OK_CANCEL_OPTION
-			        );
-			if(i == JOptionPane.YES_OPTION) {
-				int linhasAfetadas = st.executeUpdate(sql);
-				JOptionPane.showMessageDialog(null, "Excluido com sucesso");
-				st.close();
+            String sql = "DELETE from tb_produtos WHERE code = " + obj.getCode();
 
-			}
-			
-		} catch (Exception error) {
-			JOptionPane.showMessageDialog(null, "Erro excluir!\n" + error);
-		}
+            PreparedStatement st = conn.prepareStatement(sql);
 
-	}
+            int i = JOptionPane.showConfirmDialog(
+                    null,
+                    "Deseja realmente excluir?",
+                    "Continua",
+                    JOptionPane.OK_CANCEL_OPTION
+            );
+            if (i == JOptionPane.YES_OPTION) {
+                int linhasAfetadas = st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+                st.close();
+
+            }
+
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, "Erro excluir!\n" + error);
+        }
+
+    }
+
+    public List<Product> listarProdutosPorNome(String produto) {
+
+        try {
+            // 1ï¿½ criar a lista
+
+            List<Product> lista = new ArrayList<>();
+
+            // criar o sql
+            String sql = "SELECT * FROM tb_produtos WHERE name LIKE ?";
+
+            // executar o comando
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, produto);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                Product obj = new Product();
+                obj.setID(rs.getInt("id"));
+                obj.setName(rs.getString("name"));
+                obj.setCode(rs.getInt("code"));
+                obj.setQuantity(rs.getInt("quantity"));
+                obj.setPrice(rs.getDouble("price"));
+
+                lista.add(obj);
+            }
+            return lista;
+        } catch (Exception error) {
+
+            JOptionPane.showMessageDialog(null, "erro ao listar produtos " + error);
+            return null;
+        }
+    }
 
 }
